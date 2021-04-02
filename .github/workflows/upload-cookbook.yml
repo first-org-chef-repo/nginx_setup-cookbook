@@ -19,7 +19,7 @@ jobs:
         if: steps.check.outcome == 'failure'
         run: |
           wget https://packages.chef.io/files/stable/chef-workstation/21.2.278/el/8/chef-workstation-21.2.278-1.el7.x86_64.rpm
-          sudo rpm -ivh chef-workstation_21.2.278-1_amd64.deb
+          sudo rpm -ivh chef-workstation-21.2.278-1.el7.x86_64.rpm
           chef -v
   
       - name: Install Docker

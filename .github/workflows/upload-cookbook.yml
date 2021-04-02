@@ -13,7 +13,7 @@ jobs:
       - name: Check if Chef installed
         continue-on-error: true
         id: check
-        run: sudo dpkg -l | grep chef
+        run: chef -v
         
       - name: Install ChefWorkstation v21.2.278
         if: steps.check.outcome == 'failure'

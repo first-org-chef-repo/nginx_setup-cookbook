@@ -15,6 +15,8 @@ verifier:
 
 suites:
   - name: default
+    provisioner:
+        policyfile: policyfile.rb
     verifier:
       inspec_tests:
         - test/integration/default

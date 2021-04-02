@@ -1,11 +1,11 @@
 name 'nginx_setup'
-maintainer 'The Authors'
+maintainer 'r-goto'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures nginx_setup'
-version '2.0.0'
+version '1.0'
 chef_version '>= 16.0'
-depends 'nginx', '~> 11.4.0'
+depends 'nginx', '~> 11.5.1'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when

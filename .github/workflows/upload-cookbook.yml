@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Uploading Cookbooks
+name: Cookbooks Upload
 
 on: [ push, workflow_dispatch ]
   
 jobs:
-  Kitchen-Test-CI:
+  CI_TestKitchen:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
@@ -19,14 +19,15 @@ jobs:
         if: steps.check.outcome == 'failure'
         run: |
           wget -q https://packages.chef.io/files/stable/chef-workstation/21.2.278/ubuntu/20.04/chef-workstation_21.2.278-1_amd64.deb
-          sudo dpkg -i chef-workstation_21.2.278-1_amd64.deb
+          sudo rpm -ivh chef-workstation_21.2.278-1_amd64.deb
           chef -v
   
       - name: Install Docker
         run: |
-          sudo apt update -y
-          sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
-          sudo apt install -y docker-compose
+          sudo yum update -y
+          sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+          sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+          sudo yum install -y docker-ce docker-ce-cli containerd.io
           docker -v
           sudo usermod -aG docker $USER
           sudo chmod 666 /var/run/docker.sock
@@ -39,7 +40,7 @@ jobs:
           kitchen create
           kitchen converge
           
-      - name: Run Test
+      - name: Test
         run: kitchen verify
         
       - name: Cleanup Containers 
@@ -48,9 +49,9 @@ jobs:
 
   Cookbook-Upload:
     runs-on: self-hosted
-    needs: Kitchen-Test-CI
+    needs: CI_TestKitchen
     steps:
-      - name: Upload Cookbook w/ Berkshelf
+      - name: Uploading Cookbooks to Chef Server
         run: |
           rm Berksfile.lock
           berks install

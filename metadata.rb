@@ -3,7 +3,7 @@ maintainer 'r-goto'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures nginx_setup'
-version '1.0'
+version '1.0.0'
 chef_version '>= 16.0'
 depends 'nginx', '~> 11.5.1'
 

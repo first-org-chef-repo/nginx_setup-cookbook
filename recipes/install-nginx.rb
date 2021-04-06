@@ -29,7 +29,7 @@ nginx_site 'default-site' do
       'locations' => {
         '/' => {
           'root' => '/usr/share/nginx/html',
-          'index' => "#{node['nginx_setup']['root_index']} index.htm",
+          'index' => "#{node['nginx_setup']['root_index']} index.html",
         },
       },
     }
@@ -49,6 +49,6 @@ cookbook_file '/usr/share/nginx/html/chef-progress-logo.png' do
   source 'chef-progress-logo.png'
   owner 'root'
   group 'root'
-  mode '0755'
+  mode '0777'
   action :create
 end

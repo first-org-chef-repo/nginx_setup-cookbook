@@ -4,8 +4,15 @@
 #
 # Copyright:: 2021, The Authors, All Rights Reserved.
 
-nginx_install 'nginx' do
-  source 'repo'
+case node['platform']
+when 'centos', 'amazon', 'almalinux'
+  nginx_install 'nginx' do
+    source 'epel'
+  end
+when 'ubuntu'
+  nginx_install 'nginx' do
+    source 'distro'
+  end
 end
 
 nginx_service 'nginx' do

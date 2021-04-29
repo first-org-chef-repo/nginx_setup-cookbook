@@ -3,8 +3,14 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-describe package('nginx') do
-  it { should be_installed }
+if inspec.platform.name == 'ubuntu'
+  describe package('nginx-common') do
+    it { should be_installed }
+  end
+else
+  describe package('nginx') do
+    it { should be_installed }
+  end
 end
 
 describe service('nginx') do
